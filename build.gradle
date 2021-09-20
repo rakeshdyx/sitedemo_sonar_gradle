@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.sonarqube" version "3.0"
+	id "jacoco"
+	id 'java'
+}
+
+group = 'com.demo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+sonarqube {
+  properties {
+    properties["sonar.projectName"] = "TestExecutionx"
+    properties["sonar.projectKey"] = "HONTEST"
+    properties["sonar.projectVersion"] = "${project.version}"
+    properties["sonar.host.url"] = "http://10.23.165.56"
+    properties["sonar.login"] = "60b5c38460cb85b510498e72cdee607159f134b9"
+	properties["sonar.jacoco.reportPath"] = "./build/jacoco/test.exec"
+  }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+		html.enabled true
+    }
+}
+
+test {
+	useJUnitPlatform()
+}
